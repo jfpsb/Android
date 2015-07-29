@@ -11,4 +11,7 @@
     <string name="Exemplo2">Este é meu segundo exemplo Android</string>
     <string name="title_activity_exemplo1">Exemplo1</string>
     <string name="title_activity_exemplo2">Exemplo2</string>
+    <string name="title_activity_exemplo3">Exemplo3</string>
+    <string name="title_activity_exemplo4">Exemplo4</string>
+    <string name="title_activity_exemplo5">Exemplo5</string>
 </resources>

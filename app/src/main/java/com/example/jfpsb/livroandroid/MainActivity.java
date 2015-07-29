@@ -1,43 +1,60 @@
 package com.example.jfpsb.livroandroid;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ListActivity {
 
     private static final String CATEGORIA = "livro";
+    private static final String[] lista = new String[] {"Flemis 1", "Flemis 2", "Flemis 3", "Flemis 4", "Flemis 5", "Sair"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        Button btn1 = (Button) findViewById(R.id.btn1);
-        Button btn2 = (Button) findViewById(R.id.btn2);
-        Button btn3 = (Button) findViewById(R.id.btn3);
-        Button btn4 = (Button) findViewById(R.id.btn4);
-        Button btn5 = (Button) findViewById(R.id.btn5);
-
-        abreExemplo(btn1, Exemplo1.class);
-        abreExemplo(btn2, Exemplo2.class);
-        abreExemplo(btn3, Exemplo1.class);
-        abreExemplo(btn4, Exemplo1.class);
-        abreExemplo(btn5, Exemplo1.class);
+        ArrayAdapter<String> listaAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, lista);
+        this.setListAdapter(listaAdapter);
     }
 
-    public void abreExemplo(Button btn, final Class T){
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent it = new Intent(v.getContext(), T);
-                startActivity(it);
-            }
-        });
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        switch (position) {
+            case 0:
+                iniciaAct(position, Exemplo1.class);
+                break;
+            case 1:
+                iniciaAct(position, Exemplo2.class);
+                break;
+            case 2:
+                iniciaAct(position, Exemplo3.class);
+                break;
+            case 3:
+                iniciaAct(position, Exemplo4.class);
+                break;
+            case 4:
+                iniciaAct(position, Exemplo5.class);
+                break;
+            default:
+                finish();
+        }
+    }
+
+    private void iniciaAct(int position, Class classe) {
+        Intent it = new Intent(this, classe);
+        startActivity(it);
+        toaster(position);
+    }
+
+    private void toaster(int position) {
+        Object o = this.getListAdapter().getItem(position);
+        String item = o.toString();
+        Toast.makeText(this, "Você escolheu " + item, Toast.LENGTH_SHORT).show();
     }
 
     @Override
